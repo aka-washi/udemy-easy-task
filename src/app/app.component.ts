@@ -1,11 +1,20 @@
 import { Component } from '@angular/core';
 import { HeaderComponent } from "./header/header";
+import { UserComponent } from "./user/user.component";
+import { DUMMY_USERS } from './dummy-users';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [HeaderComponent],
+  imports: [HeaderComponent, UserComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
 })
-export class AppComponent {}
+export class AppComponent {
+  users = DUMMY_USERS;
+
+  onSelectUser(id: string): void {
+    console.log('Selected user id:', id);
+  }
+
+}
