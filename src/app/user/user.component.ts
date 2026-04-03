@@ -14,7 +14,6 @@ export class UserComponent {
     return `assets/users/${this.avatar}`;
   }
 
-
   onSelectUser(): void {}
 
 }
