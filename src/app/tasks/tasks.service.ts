@@ -8,7 +8,12 @@ import { type NewTaskData, type Task } from './task/task.model';
 export class TasksService {
   private tasks = dummyTasks;
   
-  constructor() { }
+  constructor() { 
+    const storedTasks = localStorage.getItem('tasks');
+    if (storedTasks) {
+      this.tasks = JSON.parse(storedTasks);
+    }
+  }
 
   getUserTasks(userId: string) {
     return this.tasks.filter(task => task.userId === userId);
@@ -23,10 +28,16 @@ export class TasksService {
           dueDate: task.date
         };
         this.tasks.unshift(newTask);
+        this.saveTasksToLocalStorage();
   }
 
   removeTask(taskId: string) {
     this.tasks = this.tasks.filter(task => task.id !== taskId);
+    this.saveTasksToLocalStorage();
+  }
+
+  private saveTasksToLocalStorage() {
+    localStorage.setItem('tasks', JSON.stringify(this.tasks));
   }
 
 }
